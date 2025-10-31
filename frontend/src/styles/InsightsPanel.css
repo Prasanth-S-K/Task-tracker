@@ -1,0 +1,157 @@
+/* Insights Panel Styles */
+
+.insights.card {
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 25px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  border-left: 6px solid #3b82f6;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.4s ease;
+}
+
+.insights.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.insights.card h2 {
+  margin-bottom: 12px;
+  color: #1e3a8a;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.summary {
+  background: #f3f4f6;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: #111827;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid #e5e7eb;
+}
+
+/* === Metrics === */
+.insights-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.metric span {
+  color: #475569;
+  font-weight: 500;
+}
+
+.metric b {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+/* === Priority === */
+.priority-stats {
+  margin-top: 15px;
+}
+
+.priority-stats h4 {
+  color: #1e40af;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.priority-stats ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.priority-stats li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  font-weight: 500;
+}
+
+.priority-stats li.low .dot {
+  background: #10b981;
+}
+.priority-stats li.medium .dot {
+  background: #f59e0b;
+}
+.priority-stats li.high .dot {
+  background: #ef4444;
+}
+
+.priority-stats .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* === Error & Loading === */
+.insights.card.error {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-left: 6px solid #ef4444;
+}
+
+.insights.card.loading {
+  text-align: center;
+  font-style: italic;
+  color: #4b5563;
+}
+
+/* === Animations === */
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+  .insights.card {
+    padding: 16px;
+  }
+
+  .summary {
+    font-size: 0.9rem;
+  }
+
+  .metric {
+    font-size: 0.9rem;
+  }
+
+  .priority-stats li {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,126 @@
+/* === TIMELINE CHART CONTAINER === */
+.timeline-chart-container {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease;
+}
+
+/* === EMPTY DATA STATE === */
+.no-data {
+  text-align: center;
+  font-size: 1rem;
+  color: #6b7280;
+  padding: 20px;
+  font-weight: 500;
+}
+
+/* === LEGEND BAR === */
+.priority-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.priority-legend .legend {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend.low {
+  background-color: #10b981;
+}
+
+.legend.medium {
+  background-color: #f59e0b;
+}
+
+.legend.high {
+  background-color: #ef4444;
+}
+
+/* === ANIMATION === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timeline-chart-container {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
+}
+
+.timeline-chart-container h3 {
+  margin-bottom: 15px;
+  color: #1e3a8a;
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.priority-legend {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.priority-legend div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.legend.low {
+  background: #10b981;
+}
+
+.legend.medium {
+  background: #f59e0b;
+}
+
+.legend.high {
+  background: #ef4444;
+}
+
+.no-data-card {
+  text-align: center;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 25px;
+  color: #4b5563;
+  border: 1px dashed #d1d5db;
+  font-weight: 500;
+}

@@ -1,29 +1,63 @@
 import express from "express";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
-import tasksRouter from "./src/routes/tasks.router.js";
+import dotenv from "dotenv";
 import { initDB } from "./src/db/connection.js";
-import insightsRouter from "./src/routes/insights.router.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import taskRoutes from "./src/routes/task.routes.js";
+import authRoutes from "./src/routes/auth.routes.js";
+import insightsRoutes from "./src/routes/insights.routes.js";
+import { authMiddleware } from "./src/middleware/auth.middleware.js";
 
-const app = express();
-const PORT = 3000;
+dotenv.config();
 
-app.use(cors());
-app.use(express.json());
-app.use("/insights", insightsRouter);
-
+// 🧩 Initialize Database
 initDB();
 
-app.use("/tasks", tasksRouter);
+const app = express();
 
+// ========================================
+// 🌐 GLOBAL MIDDLEWARES
+// ========================================
+app.use(express.json());
+
+// ✅ CORS Setup (allow frontend access)
+app.use(
+  cors({
+    origin: process.env.FRONTEND_ORIGIN || "http://localhost:5173",
+    credentials: true,
+  })
+);
+
+// ========================================
+// 🧾 PUBLIC ROUTES
+// ========================================
+app.use("/auth", authRoutes);
+
+// ========================================
+// 🔐 PROTECTED ROUTES (JWT Required)
+// ========================================
+app.use("/tasks", authMiddleware, taskRoutes);
+app.use("/insights", authMiddleware, insightsRoutes);
+
+// ========================================
+// 🩺 HEALTH CHECK
+// ========================================
 app.get("/", (req, res) => {
-  res.send("Task Tracker Backend is running");
+  res.json({
+    status: "✅ Task Tracker API running",
+    version: "1.0.0",
+    endpoints: {
+      auth: "/auth",
+      tasks: "/tasks",
+      insights: "/insights",
+    },
+  });
 });
 
-app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`)
-);
+// ========================================
+// 🚀 START SERVER
+// ========================================
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at: http://localhost:${PORT}`);
+});

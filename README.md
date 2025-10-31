@@ -1,53 +1,61 @@
 # 🧠 Task Tracker Web Application
 
-A full-stack task management web app built with **Node.js, Express, SQLite, and React**.  
-It allows users to create, update, and view tasks with AI-like workload insights — demonstrating full-stack development competency with professional structure and documentation.
+A **full-stack task management web application** built with **React, Node.js, Express, and SQLite**.  
+It allows users to manage their daily tasks, track progress, and gain smart rule-based insights.  
+Designed with a **modern UI**, clean architecture, and an **SQLite-powered backend**, it demonstrates full-stack developer proficiency.
 
 ---
 
-## 🚀 Features
+## Features
 
-- 📝 Create, read, and update tasks (status / priority)
-- 🎯 Filter and sort tasks by status or priority
-- 🤖 Smart rule-based workload insights
-- 💎 Modern responsive UI with custom CSS (no frameworks)
-- 🧩 Modular backend architecture
-- 📦 Lightweight SQLite database (portable single-file DB)
-
----
-
-## 🧠 Tech Stack
-
-| Layer               | Technology              | Description                                     |
-| :------------------ | :---------------------- | :---------------------------------------------- |
-| **Frontend**        | React (Vite)            | Interactive UI for task management              |
-| **Backend**         | Node.js + Express       | RESTful API endpoints                           |
-| **Database**        | SQLite (Better-SQLite3) | Lightweight local database                      |
-| **Styling**         | Pure CSS                | Manually styled with animations and transitions |
-| **Package Manager** | npm                     | Dependency management                           |
+- **Task CRUD Operations** – Create, view, and update tasks easily
+- **Filtering & Sorting** – Filter by status or priority, sort by date or urgency
+- **Smart Insights** – Dynamic dashboard summarizing open tasks and due deadlines
+- **Modern UI** – Responsive design using pure CSS (no external UI frameworks)
+- **User Authentication** – Secure login & registration with JWT
+- **Interactive Visuals** – Bar chart visualization for due dates
+- **Modular Backend** – Clean structure using Express routes & middleware
+- **Lightweight Database** – Portable single-file SQLite for simplicity
 
 ---
 
-## ⚙️ Installation & Setup
+## Tech Stack
 
-Follow these steps to run the project locally 👇
+| Layer               | Technology              | Description                              |
+| :------------------ | :---------------------- | :--------------------------------------- |
+| **Frontend**        | React (Vite)            | Interactive and dynamic UI               |
+| **Backend**         | Node.js + Express       | RESTful API layer                        |
+| **Database**        | SQLite (Better-SQLite3) | Lightweight and file-based relational DB |
+| **Auth**            | JWT (JSON Web Token)    | Secure authentication                    |
+| **Styling**         | Pure CSS                | Modern glassmorphism design              |
+| **Package Manager** | npm                     | Dependency management                    |
 
-### 1️⃣ Clone the Repository
+---
+
+## Installation & Setup
+
+Follow these steps to set up and run the app locally 👇
+
+### Clone the Repository
 
 ```bash
 git clone https://github.com/<your-username>/task-tracker.git
 cd task-tracker
-```
 
-### 2️⃣ Setup the Backend
+
+### Setup the Backend
 
 cd backend
 npm install
 node server.js
 
-✅ The backend will run on http://localhost:3000
+The backend will run on http://localhost:3000
+- You should see:
 
-### 3️⃣ Setup the Frontend
+- Database initialized successfully with UUID & User Auth support!
+- Server running at: http://localhost:3000
+
+### Setup the Frontend
 
 Open a new terminal in the root folder and run:
 
@@ -55,85 +63,104 @@ cd ../frontend
 npm install
 npm run dev
 
-✅ The frontend will run on http://localhost:5173
+- The frontend will run on http://localhost:5173
 
-### 📂 Folder Structure
+### Folder Structure
 
 task-tracker/
 ├── backend/
-│ ├── server.js
-│ ├── src/
-│ │ ├── db/
-│ │ ├── routes/
-│ │ └── services/
-│ └── task_tracker.db
+│   ├── server.js
+│   ├── src/
+│   │   ├── db/
+│   │   │   └── connection.js
+│   │   ├── routes/
+│   │   │   ├── auth.routes.js
+│   │   │   ├── task.routes.js
+│   │   │   └── insights.routes.js
+│   │   └── middleware/
+│   │       └── auth.middleware.js
+│   └── task_tracker.db
+│
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── App.jsx
-│ │ └── styles.css
+│   ├── src/
+│   │   ├── components/
+│   │   ├── styles/
+│   │   └── App.jsx
+│   ├── package.json
+│   └── vite.config.js
+│
 ├── README.md
 ├── DECLARATION.md
 └── notes.md
 
-### 🧮 API Endpoints
 
-🔹 Tasks API
-| Method | Endpoint | Description |
-| :-------: | :----------- | :----------------------------------------- |
-| **POST** | `/tasks` | Create a new task |
-| **GET** | `/tasks` | Retrieve all tasks (with optional filters) |
-| **PATCH** | `/tasks/:id` | Update task status or priority |
+### API Endpoints
 
-### 🔹 Insights API
+|  Method  | Endpoint         | Description              |
+| :------: | :--------------- | :----------------------- |
+| **POST** | `/auth/register` | Register a new user      |
+| **POST** | `/auth/login`    | Log in and get JWT token |
 
-| Method  | Endpoint    | Description                        |
-| :-----: | :---------- | :--------------------------------- |
-| **GET** | `/insights` | Returns AI-like rule-based summary |
 
-### 🧩 Example API Response
+### Tasks API
+|   Method   | Endpoint       | Description                              |
+| :--------: | :------------- | :--------------------------------------- |
+|  **POST**  | `/tasks`       | Create a new task                        |
+|   **GET**  | `/tasks`       | Retrieve all tasks                       |
+|  **PATCH** | `/tasks/:uuid` | Update task status, priority, or details |
+| **DELETE** | `/tasks/:uuid` | Delete a task                            |
+
+
+### Insights API
+
+||  Method | Endpoint    | Description                                 |
+| :-----: | :---------- | :------------------------------------------ |
+| **GET** | `/insights` | Returns AI-like rule-based insights summary |
+
+
+### Example API Response
 
 /insights Example Output
-
 {
-"totalOpen": 5,
-"priorities": [
-{ "priority": "High", "count": 3 },
-{ "priority": "Medium", "count": 2 }
-],
-"dueSoon": 2,
-"summary": "You have 5 open tasks. 2 are due within 3 days. Most of them are High priority."
+  "totalOpen": 5,
+  "priorities": [
+    { "priority": "High", "count": 3 },
+    { "priority": "Medium", "count": 2 }
+  ],
+  "dueSoon": 2,
+  "summary": "You have 5 open tasks. 2 are due within 3 days. Most of them are High priority."
 }
 
-### 🧱 Database Schema
+
+###  Database Schema
 
 CREATE TABLE tasks (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-title TEXT NOT NULL,
-description TEXT,
-priority TEXT CHECK(priority IN ('Low', 'Medium', 'High')) DEFAULT 'Medium',
-due_date TEXT NOT NULL,
-status TEXT CHECK(status IN ('Open', 'In Progress', 'Done')) DEFAULT 'Open',
-created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uuid TEXT UNIQUE,
+  title TEXT NOT NULL,
+  description TEXT,
+  priority TEXT CHECK(priority IN ('Low', 'Medium', 'High')) DEFAULT 'Medium',
+  due_date TEXT NOT NULL,
+  status TEXT CHECK(status IN ('Open', 'In Progress', 'Done')) DEFAULT 'Open',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-### 💡 Design Highlights
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
--Clean, modular architecture (routes, services, db)
--Professional file structure following MVC pattern
--Custom CSS styling with glass-morphism cards, shadows, and animations
--Simple and portable SQLite integration
 
-### 🧠 Future Enhancements
-
-🔍 Add search functionality (by task title)
-🧾 Add delete task feature
-📊 Add progress tracking bar
-☁️ Deploy to Render / Vercel for live demo
-
-### 👨‍💻 Author
+### Author
 
 Prasanth Kamalanathan
 Full-Stack Developer (Fresher)
 📧 prasanthk12051999@gmail.com
 📍 India
+```
+
+### username PrasanthK
+
+### password 12345

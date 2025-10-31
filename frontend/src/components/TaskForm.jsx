@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/TaskForm.css";
 
 const BACKEND_URL = "http://localhost:3000";
 
@@ -9,24 +10,51 @@ function TaskForm({ onTaskAdded }) {
     priority: "Medium",
     due_date: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ type: "", text: "" });
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(`${BACKEND_URL}/tasks`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    setForm({ title: "", description: "", priority: "Medium", due_date: "" });
-    onTaskAdded();
+    setMessage({ type: "", text: "" });
+    setLoading(true);
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setMessage({ type: "error", text: "Please log in to add a task." });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/tasks`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to create task");
+
+      setMessage({ type: "success", text: "Task added successfully!" });
+      setForm({ title: "", description: "", priority: "Medium", due_date: "" });
+      onTaskAdded();
+    } catch (err) {
+      setMessage({ type: "error", text: err.message });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form className="task-form card" onSubmit={handleSubmit}>
-      <h2>Create a Task</h2>
+    <form className="task-form" onSubmit={handleSubmit}>
+      <h2>📝 Create a New Task</h2>
+
       <input
         name="title"
         type="text"
@@ -35,26 +63,50 @@ function TaskForm({ onTaskAdded }) {
         onChange={handleChange}
         required
       />
-      <input
+
+      <textarea
         name="description"
-        type="text"
-        placeholder="Description"
+        placeholder="Description (optional)"
         value={form.description}
         onChange={handleChange}
-      />
-      <input
-        name="due_date"
-        type="date"
-        value={form.due_date}
-        onChange={handleChange}
-        required
-      />
-      <select name="priority" value={form.priority} onChange={handleChange}>
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
-      </select>
-      <button type="submit">Add Task</button>
+      ></textarea>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label>Priority</label>
+          <select
+            name="priority"
+            value={form.priority}
+            onChange={handleChange}
+            required
+          >
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Due Date</label>
+          <input
+            name="due_date"
+            type="date"
+            value={form.due_date}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      </div>
+
+      <button type="submit" disabled={loading}>
+        {loading ? "Saving..." : "Add Task"}
+      </button>
+
+      {message.text && (
+        <p className={message.type === "error" ? "error" : "success"}>
+          {message.text}
+        </p>
+      )}
     </form>
   );
 }

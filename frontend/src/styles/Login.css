@@ -1,0 +1,217 @@
+/* Login & Register Page Styles */
+
+/* Background with animated gradient */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(-45deg, #3b82f6, #2563eb, #60a5fa, #1e3a8a);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* Glass card */
+.login-glass {
+  width: 360px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 35px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Headings */
+.login-glass h2 {
+  margin-bottom: 6px;
+  color: #1e3a8a;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #334155;
+  margin-bottom: 18px;
+}
+
+/* Form */
+.login-glass form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-glass input {
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  font-size: 0.95rem;
+  background: #f9fafb;
+  transition: 0.25s;
+}
+
+.login-glass input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  background: #fff;
+}
+
+/* Buttons */
+.login-glass button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  margin-top: 5px;
+}
+
+.login-glass button:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
+}
+
+.login-glass button:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+.login-glass input {
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #111827; /* ✅ Ensures dark visible text */
+  transition: 0.25s;
+}
+
+.login-glass input::placeholder {
+  color: #9ca3af; /* ✅ Soft gray placeholder */
+}
+
+.login-glass input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  background: #fff;
+  color: #111827;
+}
+
+/* Error message */
+.error {
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  animation: shake 0.4s ease;
+}
+
+/* Toggle */
+.toggle-auth {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  color: #1e3a8a;
+}
+
+.toggle-auth span {
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.toggle-auth span:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
+}
+
+/* === Animations === */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-8px);
+  }
+  40%,
+  60% {
+    transform: translateX(8px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-glass {
+    width: 85%;
+    padding: 25px 20px;
+  }
+}
+
+/* === Password Field  === */
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  color: #3b82f6;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  user-select: none;
+}
+
+.eye-icon:hover {
+  color: #1d4ed8;
+  transform: scale(1.1);
+}
