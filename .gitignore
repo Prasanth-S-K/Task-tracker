@@ -1,0 +1,62 @@
+# ==========================================================
+# TASK TRACKER - Global .gitignore
+# Ignores unwanted files in both backend and frontend
+# ==========================================================
+
+# -------------------------------
+# Node Modules
+# -------------------------------
+backend/node_modules/
+frontend/node_modules/
+
+# -------------------------------
+# Database File
+# -------------------------------
+backend/task_tracker.db
+
+# -------------------------------
+# Build / Output Directories
+# -------------------------------
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+backend/.cache/
+
+# -------------------------------
+# Logs
+# -------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -------------------------------
+# Environment Variables
+# -------------------------------
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# -------------------------------
+# Editor / IDE Files
+# -------------------------------
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# -------------------------------
+# Misc
+# -------------------------------
+*.local
+*.tmp
+*.cache
