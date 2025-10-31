@@ -5,7 +5,7 @@ import InsightsPanel from "./components/InsightsPanel";
 import Login from "./components/Login";
 import "./styles/global.css";
 
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
   const [tasks, setTasks] = useState([]);

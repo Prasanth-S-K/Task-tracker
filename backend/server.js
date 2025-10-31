@@ -10,41 +10,48 @@ import { authMiddleware } from "./src/middleware/auth.middleware.js";
 
 dotenv.config();
 
-// 🧩 Initialize Database
+// Initialize Database
 initDB();
 
 const app = express();
 
-// ========================================
-// 🌐 GLOBAL MIDDLEWARES
-// ========================================
-app.use(express.json());
+// GLOBAL MIDDLEWARES
 
-// ✅ CORS Setup (allow frontend access)
+app.use(express.json());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, DELETE, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
+// CORS Setup
 app.use(
   cors({
-    origin: process.env.FRONTEND_ORIGIN || "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://task-tracker.vercel.app"],
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
 
-// ========================================
-// 🧾 PUBLIC ROUTES
-// ========================================
+// PUBLIC ROUTES
+
 app.use("/auth", authRoutes);
 
-// ========================================
-// 🔐 PROTECTED ROUTES (JWT Required)
-// ========================================
+// PROTECTED ROUTES
+
 app.use("/tasks", authMiddleware, taskRoutes);
 app.use("/insights", authMiddleware, insightsRoutes);
 
-// ========================================
-// 🩺 HEALTH CHECK
-// ========================================
+// HEALTH CHECK
+
 app.get("/", (req, res) => {
   res.json({
-    status: "✅ Task Tracker API running",
+    status: "Task Tracker API running",
     version: "1.0.0",
     endpoints: {
       auth: "/auth",
@@ -54,10 +61,9 @@ app.get("/", (req, res) => {
   });
 });
 
-// ========================================
-// 🚀 START SERVER
-// ========================================
+// START SERVER
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at: http://localhost:${PORT}`);
+  console.log(`Server running at: http://localhost:${PORT}`);
 });
